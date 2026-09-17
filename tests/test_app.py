@@ -20,3 +20,12 @@ response = client.get("/events")
 
 assert response.status_code == 200
 assert "events" in response.get_json()
+
+def test_root_message():
+    client = app.test_client()
+    response = client.get("/")
+
+    data = response.get_json()
+
+    assert data["status"] == "online"
+    assert data["message"] == "SentinelHub backend is running"
