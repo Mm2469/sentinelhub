@@ -16,16 +16,25 @@ assert response.get_json()["project"] == "SentinelHub"
 
 def test_health():
 client = app.test_client()
+response = client.get("/health")
+
+assert response.status_code == 200
+assert response.get_json()["status"] == "healthy"
+
+
+def test_events():
+client = app.test_client()
 response = client.get("/events")
 
 assert response.status_code == 200
 assert "events" in response.get_json()
 
+
 def test_root_message():
-    client = app.test_client()
-    response = client.get("/")
+client = app.test_client()
+response = client.get("/")
 
-    data = response.get_json()
+data = response.get_json()
 
-    assert data["status"] == "online"
-    assert data["message"] == "SentinelHub backend is running"
+assert data["status"] == "online"
+assert data["message"] == "SentinelHub backend is running"
