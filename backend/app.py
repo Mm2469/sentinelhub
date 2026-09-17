@@ -1,7 +1,9 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from routes import health_check, get_events
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
@@ -16,6 +18,7 @@ return jsonify({
 @app.route("/health")
 def health():
 return health_check()
+
 
 @app.route("/events")
 def events():
